@@ -1,3 +1,9 @@
+/**
+ * This logic and code was implemented from the following resources:
+ *   - https://www.apollographql.com/docs/apollo-server/security/authentication/#with-custom-directives
+ *   - https://the-guild.dev/graphql/tools/docs/schema-directives#enforcing-access-permissions
+ */
+
 import { getDirective, MapperKind, mapSchema } from "@graphql-tools/utils";
 import { defaultFieldResolver } from "graphql";
 
