@@ -8,7 +8,7 @@ import { getDirective, MapperKind, mapSchema } from "@graphql-tools/utils";
 import { defaultFieldResolver } from "graphql";
 
 // The header we parse to get the current role
-const USER_HEADER = "x-user-role";
+export const USER_HEADER = "x-user-role";
 
 // The order of roles is important here as higher roles have bigger indexes
 // and determine the order of hierarchy.

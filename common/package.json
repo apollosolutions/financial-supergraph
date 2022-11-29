@@ -1,0 +1,13 @@
+{
+  "name": "@apollosolutions/financial-supergraph-common",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@apollosolutions/financial-supergraph-common": "^1.0.0",
+    "@graphql-tools/utils": "^9.1.1",
+    "graphql": "^16.6.0"
+  }
+}
