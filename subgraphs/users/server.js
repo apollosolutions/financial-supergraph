@@ -6,6 +6,7 @@ import { resolvers } from "./resolvers.js";
 import { readFileSync } from "fs";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
+import { authDirectiveTransformer } from "./auth.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const typeDefs = parse(
@@ -13,7 +14,7 @@ const typeDefs = parse(
 );
 const schema = buildSubgraphSchema([{ typeDefs, resolvers }]);
 const server = new ApolloServer({
-  schema,
+  schema: authDirectiveTransformer(schema),
   cache: "bounded",
   csrfPrevention: true,
 });
