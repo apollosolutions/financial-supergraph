@@ -1,0 +1,46 @@
+enum CreditApplicationStatus {
+  PENDING
+  APPROVED
+  DECLINED
+}
+
+enum BankAccountTier {
+  BASIC
+  PREMIUM
+  VIP
+}
+
+enum BankAccountType {
+  CREDIT_CARD
+}
+
+type User @key(fields: "id") {
+  id: ID!
+}
+
+type CreditCardApplication @key(fields: "id"){
+  id: ID!
+  customer: User
+  yearlyEarnings: Int
+  totalDebt: Int
+  monthlyExpenses: Int
+  status: CreditApplicationStatus
+}
+
+interface BankAccount {
+  id: ID!
+  type: BankAccountType
+  balance: Int
+}
+
+type CreditCardAccount implements BankAccount @key(fields: "id") {
+  id: ID!
+  type: BankAccountType
+  tier: BankAccountTier
+  balance: Int
+  availableCredit: Int
+}
+
+type Mutation {
+  applyForCredit(yearlyEarnings: Int!, totalDebt: Int!, monthlyExpenses: Int!): CreditCardApplication
+}
