@@ -1,0 +1,56 @@
+enum TransactionType {
+  DEBIT
+  CREDIT
+}
+
+type Transaction @key(fields: "id") {
+  id: ID!
+  ammount: Int
+  description: String
+  account: BankAccount
+}
+
+interface BankAccount {
+  id: ID!
+  transactions: [Transaction]
+  balance: Int
+}
+
+type CheckingAccount implements BankAccount @key(fields: "id") {
+  id: ID!
+  transactions: [Transaction]
+  balance: Int
+}
+
+type SavingsAccount implements BankAccount @key(fields: "id") {
+  id: ID!
+  transactions: [Transaction]
+  balance: Int
+}
+
+type CreditCardAccount implements BankAccount @key(fields: "id") {
+  id: ID!
+  transactions: [Transaction]
+  balance: Int
+}
+
+type TransactionApproved {
+  message: String
+}
+
+type TransactionDeclined {
+  message: String
+}
+
+type InsufficientFundsError {
+  message: String
+}
+
+union TransactionResult = InsufficientFundsError | TransactionApproved | TransactionDeclined
+
+type Mutation {
+  debitFromAccount(account: ID!, ammount: Int!): TransactionResult
+  creditToAccount(account: ID!, ammount: Int!): TransactionResult
+  withdrawFromAccount(account: ID!, ammount: Int!): TransactionResult
+  transferFundsBetweenAccounts(fromAccount: ID!, toAccount: ID!, ammount: Int!): TransactionResult
+}
