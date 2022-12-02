@@ -10,8 +10,8 @@
     "dev": "NODE_ENV=dev nodemon index.js"
   },
   "dependencies": {
-    "@apollo/subgraph": "^2.2.1",
     "@apollo/server": "^4.1.1",
+    "@apollo/subgraph": "^2.2.1",
     "graphql": "^16.6.0"
   }
 }

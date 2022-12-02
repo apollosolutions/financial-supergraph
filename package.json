@@ -3,9 +3,9 @@
   "license": "MIT",
   "type": "module",
   "workspaces": [
-    "gateway",
-    "common",
-    "subgraphs/*"
+    "./gateway",
+    "./common",
+    "./subgraphs/*"
   ],
   "scripts": {
     "dev": "NODE_ENV=dev nodemon dev.js",
