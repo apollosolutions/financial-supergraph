@@ -1,4 +1,4 @@
-# fly.toml file generated for apollosolutions--financial-supergraph--users on 2022-11-15T15:42:08-08:00
+# fly.toml file generated for apollosolutions--financial-supergraph--transactions on 2022-11-15T15:42:08-08:00
 
 app = "apollosolutions--financial-supergraph--transactions"
 kill_signal = "SIGINT"

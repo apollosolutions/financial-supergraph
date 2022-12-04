@@ -27,5 +27,5 @@ export const start = async (port) => {
       return { headers: req.headers };
     },
   });
-  console.log(`Credits subgraph running at ${url}`);
+  console.log(`Credit subgraph running at ${url}`);
 };

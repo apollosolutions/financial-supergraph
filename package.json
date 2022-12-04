@@ -9,14 +9,7 @@
   "scripts": {
     "dev": "NODE_ENV=dev nodemon dev.js",
     "health-check": "curl -H 'content-type: application/json' http://localhost:4000/graphql?query=%7B__typename%7D",
-    "test": "start-server-and-test dev http-get://localhost:4000/?query={__typename} health-check",
-    "get-collections": "node ./collections.js"
-  },
-  "dependencies": {
-    "@apollo/subgraph": "^2.2.1",
-    "@apollo/server": "^4.2.2",
-    "@apollosolutions/simple-auth-directive": "github:apollosolutions/simple-auth-directive",
-    "graphql": "^16.6.0"
+    "test": "start-server-and-test dev http-get://localhost:4000/?query={__typename} health-check"
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
