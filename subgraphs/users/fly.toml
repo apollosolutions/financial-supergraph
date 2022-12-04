@@ -5,6 +5,10 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
+[build]
+  builder = "heroku/buildpacks:20"
+  args =
+
 [env]
   NODE_ENV = "fly"
   PORT = "8080"
