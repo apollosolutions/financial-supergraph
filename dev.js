@@ -1,17 +1,17 @@
-import { start as users } from "@apollosolutions/financial-supergraph-users/server.js";
 import { start as accounts } from "@apollosolutions/financial-supergraph-accounts/server.js";
-import { start as transactions } from "@apollosolutions/financial-supergraph-transactions/server.js";
 import { start as credit } from "@apollosolutions/financial-supergraph-credit/server.js";
+import { start as transactions } from "@apollosolutions/financial-supergraph-transactions/server.js";
+import { start as users } from "@apollosolutions/financial-supergraph-users/server.js";
 import { start as gateway } from "@apollosolutions/financial-supergraph-gateway/server.js";
 
 const LOCAL_SUBGRAPH_CONFIG = [
   {
-    name: "users",
+    name: "accounts",
     port: 4001,
     url: `http://localhost:4001/graphql`,
   },
   {
-    name: "accounts",
+    name: "credit",
     port: 4002,
     url: `http://localhost:4002/graphql`,
   },
@@ -21,7 +21,7 @@ const LOCAL_SUBGRAPH_CONFIG = [
     url: `http://localhost:4003/graphql`,
   },
   {
-    name: "credit",
+    name: "users",
     port: 4004,
     url: `http://localhost:4004/graphql`,
   }
@@ -33,10 +33,10 @@ const getLocalPort = (subgraphName) =>
 (async () => {
   // start all subgraphs
   await Promise.all([
-    users(getLocalPort('users')),
     accounts(getLocalPort('accounts')),
-    transactions(getLocalPort('transactions')),
     credit(getLocalPort('credit')),
+    transactions(getLocalPort('transactions')),
+    users(getLocalPort('users')),
   ]);
 
   // wait 1s, needed for Stackblitz to load
