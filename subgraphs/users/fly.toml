@@ -7,7 +7,6 @@ processes = []
 
 [build]
   builder = "heroku/buildpacks:20"
-  args =
 
 [env]
   NODE_ENV = "fly"
