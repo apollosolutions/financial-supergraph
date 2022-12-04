@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@apollo/subgraph": "^2.2.1",
-    "@apollo/server": "^4.1.1",
+    "@apollo/server": "^4.2.2",
+    "@apollosolutions/simple-auth-directive": "github:apollosolutions/simple-auth-directive",
     "graphql": "^16.6.0"
   }
 }

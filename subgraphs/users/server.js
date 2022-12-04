@@ -6,7 +6,7 @@ import { resolvers } from "./resolvers.js";
 import { readFileSync } from "fs";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
-import { authDirectiveTransformer } from "@apollosolutions/financial-supergraph-common";
+import { authDirectiveTransformer } from "@apollosolutions/simple-auth-directive";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const typeDefs = parse(
