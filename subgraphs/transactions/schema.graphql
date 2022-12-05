@@ -1,3 +1,5 @@
+# noinspection GraphQLTypeRedefinition
+
 enum TransactionType {
   DEBIT
   CREDIT
@@ -12,8 +14,6 @@ type Transaction @key(fields: "id") {
 
 interface BankAccount {
   id: ID!
-  transactions: [Transaction]
-  balance: Int
 }
 
 type CheckingAccount implements BankAccount @key(fields: "id") {
