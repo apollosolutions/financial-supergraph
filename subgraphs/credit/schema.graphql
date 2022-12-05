@@ -1,3 +1,5 @@
+# noinspection GraphQLTypeRedefinition
+
 enum CreditApplicationStatus {
   PENDING
   APPROVED
@@ -29,8 +31,6 @@ type CreditCardApplication @key(fields: "id"){
 
 interface BankAccount {
   id: ID!
-  type: BankAccountType
-  balance: Int
 }
 
 type CreditCardAccount implements BankAccount @key(fields: "id") {

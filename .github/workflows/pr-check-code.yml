@@ -27,13 +27,30 @@ jobs:
   schema-checks:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Install Rover
         run: |
           curl -sSL https://rover.apollo.dev/nix/latest | sh
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
+
+      - name: Check accounts subgraph
+        run: |
+          rover subgraph check apollo-financial-supergraph@prod \
+            --name accounts \
+            --schema ./subgraphs/accounts/schema.graphql
+
+      - name: Check credit subgraph
+        run: |
+          rover subgraph check apollo-financial-supergraph@prod \
+            --name credit \
+            --schema ./subgraphs/credit/schema.graphql
+
+      - name: Check transactions subgraph
+        run: |
+          rover subgraph check apollo-financial-supergraph@prod \
+            --name transactions \
+            --schema ./subgraphs/transactions/schema.graphql
 
       - name: Check users subgraph
         run: |
