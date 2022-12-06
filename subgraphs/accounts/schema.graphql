@@ -22,6 +22,7 @@ enum BankAccountTier {
 
 type BankAccount @key(fields: "id") {
   id: ID!
+  name: String
   type: BankAccountType
   tier: BankAccountTier
 }

@@ -4,7 +4,7 @@ export const USERS = [
     name: "User One",
     accounts: [
       {
-        id: "accounts:1"
+        id: "account:1"
       }
     ]
   },
@@ -13,7 +13,7 @@ export const USERS = [
     name: "User Two",
     accounts: [
       {
-        id: "accounts:2"
+        id: "account:2"
       }
     ]
   },
