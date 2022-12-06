@@ -7,23 +7,19 @@ import { start as gateway } from "@apollosolutions/financial-supergraph-gateway/
 const LOCAL_SUBGRAPH_CONFIG = [
   {
     name: "accounts",
-    port: 4001,
-    url: `http://localhost:4001/graphql`,
+    port: 4001
   },
   {
     name: "credit",
-    port: 4002,
-    url: `http://localhost:4002/graphql`,
+    port: 4002
   },
   {
     name: "transactions",
-    port: 4003,
-    url: `http://localhost:4003/graphql`,
+    port: 4003
   },
   {
     name: "users",
-    port: 4004,
-    url: `http://localhost:4004/graphql`,
+    port: 4004
   }
 ];
 
