@@ -26,7 +26,12 @@ type Query {
   users: [User]
 }
 
-type User @key(fields: "id") {
+type User @key(fields: "id") @auth(requires: USER) {
   id: ID!
-  name: String @auth(requires: USER)
+  name: String
+  accounts: [BankAccount]
+}
+
+type BankAccount @key(fields: "id", resolvable: false) {
+  id: ID!
 }

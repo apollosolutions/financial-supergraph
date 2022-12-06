@@ -9,6 +9,7 @@ export const resolvers = {
   User: {
     __resolveReference(ref) {
       return getUserById(ref.id);
-    }
-  },
+    },
+    accounts: (parent) => getUserById(parent.id).accounts
+  }
 };
