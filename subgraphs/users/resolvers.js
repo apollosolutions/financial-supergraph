@@ -10,5 +10,5 @@ export const resolvers = {
     __resolveReference(ref) {
       return getUserById(ref.id);
     }
-  },
+  }
 };
