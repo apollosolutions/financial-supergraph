@@ -1,5 +1,14 @@
 # noinspection GraphQLTypeRedefinition
 
+type Query {
+  bankAccounts: BankAccountsResponse
+}
+
+type Mutation {
+  openCheckingAccount(tier: BankAccountTier): BankAccountsResponse
+  openSavingsAccount(tier: BankAccountTier): BankAccountsResponse
+}
+
 enum BankAccountType {
   CHECKING
   SAVINGS
@@ -16,33 +25,15 @@ type Transaction @key(fields: "id") {
   account: BankAccount
 }
 
-interface BankAccount {
+type BankAccount @key(fields: "id") {
   id: ID!
-}
-
-type CheckingAccount implements BankAccount @key(fields: "id") {
-  id: ID!
-  type: BankAccountType
-  tier: BankAccountTier
-}
-
-type SavingsAccount implements BankAccount @key(fields: "id") {
-  id: ID!
+  name: String
   type: BankAccountType
   tier: BankAccountTier
 }
 
 type BankAccountsResponse @tag(name: "bankAccounts") {
   all: [BankAccount]
-  checking: [CheckingAccount]
-  savings: [SavingsAccount]
-}
-
-type Query {
-  bankAccounts: BankAccountsResponse
-}
-
-type Mutation {
-  openCheckingAccount(tier: BankAccountTier): BankAccountsResponse
-  openSavingsAccount(tier: BankAccountTier): BankAccountsResponse
+  checking: [BankAccount]
+  savings: [BankAccount]
 }

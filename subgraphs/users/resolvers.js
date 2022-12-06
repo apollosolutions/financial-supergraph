@@ -11,24 +11,7 @@ export const resolvers = {
     __resolveReference(ref) {
       console.log('resolving User reference', ref.id);
       return getUserById(ref.id);
-    }
-  },
-  CheckingAccount: {
-    __resolveReference(ref) {
-      console.log('resolving CheckingAccount reference', ref.id);
-      return getAccountById(ref.id);
     },
-    user(account) {
-      return getUserById(account.user);
-    }
-  },
-  SavingsAccount: {
-    __resolveReference(ref) {
-      console.log('resolving SavingsAccount reference', ref.id);
-      return getAccountById(ref.id);
-    },
-    user(account) {
-      return getUserById(account.user);
-    }
+    accounts: (parent) => getUserById(parent.id).accounts
   }
 };

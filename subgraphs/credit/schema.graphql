@@ -29,11 +29,7 @@ type CreditCardApplication @key(fields: "id"){
   status: CreditApplicationStatus
 }
 
-interface BankAccount {
-  id: ID!
-}
-
-type CreditCardAccount implements BankAccount @key(fields: "id") {
+type BankAccount @key(fields: "id") {
   id: ID!
   type: BankAccountType
   tier: BankAccountTier

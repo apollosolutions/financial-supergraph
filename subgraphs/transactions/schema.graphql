@@ -11,24 +11,7 @@ type Transaction @key(fields: "id") {
   description: String
 }
 
-interface BankAccount {
-  id: ID!
-  transactions: [Transaction]
-}
-
-type CheckingAccount implements BankAccount @key(fields: "id") {
-  id: ID!
-  transactions: [Transaction]
-  balance: Int@requires(fields: "transactions { amount }")
-}
-
-type SavingsAccount implements BankAccount @key(fields: "id") {
-  id: ID!
-  transactions: [Transaction]
-  balance: Int @requires(fields: "transactions { amount }")
-}
-
-type CreditCardAccount implements BankAccount @key(fields: "id") {
+type BankAccount @key(fields: "id") {
   id: ID!
   transactions: [Transaction]
   balance: Int@requires(fields: "transactions { amount }")
@@ -49,10 +32,10 @@ type InsufficientFundsError {
 union TransactionResult = InsufficientFundsError | TransactionApproved | TransactionDeclined
 
 type Mutation {
-  debitFromAccount(account: ID!, ammount: Int!): TransactionResult
-  creditToAccount(account: ID!, ammount: Int!): TransactionResult
-  withdrawFromAccount(account: ID!, ammount: Int!): TransactionResult
-  transferFundsBetweenAccounts(fromAccount: ID!, toAccount: ID!, ammount: Int!): TransactionResult
+  debitFromAccount(account: ID!, amount: Int!): TransactionResult
+  creditToAccount(account: ID!, amount: Int!): TransactionResult
+  withdrawFromAccount(account: ID!, amount: Int!): TransactionResult
+  transferFundsBetweenAccounts(fromAccount: ID!, toAccount: ID!, amount: Int!): TransactionResult
 }
 
 type TransactionsResponse {

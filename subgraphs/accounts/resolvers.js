@@ -5,12 +5,12 @@ export const getTransactionById = (id) => TRANSACTIONS.find((it) => it.id === id
 
 export const resolvers = {
   Query: {
-    bankAccounts: () => ({}),
+    bankAccounts: () => ({})
   },
   BankAccountsResponse: {
     all: () => ACCOUNTS,
-    checking: () => ACCOUNTS.filter((it) => it.type === "CHECKING"),
-    savings: () => ACCOUNTS.filter((it) => it.type === "SAVINGS"),
+    checking: () => ACCOUNTS.filter(it => it.type === "CHECKING"),
+    savings: () => ACCOUNTS.filter(it => it.type === "SAVINGS")
   },
   BankAccount: {
     __resolveReference(ref) {
