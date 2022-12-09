@@ -27,7 +27,7 @@ type SavingsAccount implements BankAccount @key(fields: "id") {
   tier: BankAccountTier
 }
 
-type BankAccountsResponse {
+type BankAccountsResponse @tag(name: "bankAccounts") {
   all: [BankAccount]
   checking: [CheckingAccount]
   savings: [SavingsAccount]
