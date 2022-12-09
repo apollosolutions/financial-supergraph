@@ -23,9 +23,11 @@ export const TRANSACTIONS = [
 
 export const ACCOUNTS = [
   {
+    __typename: "CheckingAccount",
     id: "account:1",
   },
   {
+    __typename: "SavingsAccount",
     id: "account:2",
   },
 ];

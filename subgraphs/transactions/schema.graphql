@@ -9,29 +9,29 @@ type Transaction @key(fields: "id") {
   id: ID!
   amount: Int
   description: String
-  account: BankAccount
 }
 
 interface BankAccount {
   id: ID!
+  transactions: [Transaction]
 }
 
 type CheckingAccount implements BankAccount @key(fields: "id") {
   id: ID!
   transactions: [Transaction]
-  balance: Int
+  balance: Int@requires(fields: "transactions { amount }")
 }
 
 type SavingsAccount implements BankAccount @key(fields: "id") {
   id: ID!
   transactions: [Transaction]
-  balance: Int
+  balance: Int @requires(fields: "transactions { amount }")
 }
 
 type CreditCardAccount implements BankAccount @key(fields: "id") {
   id: ID!
   transactions: [Transaction]
-  balance: Int
+  balance: Int@requires(fields: "transactions { amount }")
 }
 
 type TransactionApproved {
@@ -53,4 +53,8 @@ type Mutation {
   creditToAccount(account: ID!, ammount: Int!): TransactionResult
   withdrawFromAccount(account: ID!, ammount: Int!): TransactionResult
   transferFundsBetweenAccounts(fromAccount: ID!, toAccount: ID!, ammount: Int!): TransactionResult
+}
+
+type Query {
+  transactions: [Transaction]
 }

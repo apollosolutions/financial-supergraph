@@ -16,3 +16,22 @@ export const ACCOUNTS = [
     user: "user:1"
   },
 ];
+
+export const TRANSACTIONS = [
+  {
+    id: "transaction:1",
+    account: "account:1"
+  },
+  {
+    id: "transaction:2",
+    account: "account:1",
+  },
+  {
+    id: "transaction:3",
+    account: "account:2"
+  },
+  {
+    id: "transaction:4",
+    account: "account:2"
+  },
+];
