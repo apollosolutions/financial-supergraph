@@ -5,7 +5,10 @@ export const getAccountById = (id) => ACCOUNTS.find((it) => it.id === id);
 
 export const resolvers = {
   Query: {
-    transactions: () => TRANSACTIONS
+    transactions: () => ({})
+  },
+  TransactionsResponse: {
+    transactions: () => TRANSACTIONS,
   },
   Transaction: {
     __resolveReference(ref) {

@@ -55,6 +55,10 @@ type Mutation {
   transferFundsBetweenAccounts(fromAccount: ID!, toAccount: ID!, ammount: Int!): TransactionResult
 }
 
-type Query {
+type TransactionsResponse {
   transactions: [Transaction]
+}
+
+type Query {
+  transactions: TransactionsResponse
 }

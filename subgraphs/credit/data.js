@@ -1,10 +1,19 @@
-export const CREDITS = [
+export const CREDITCARDS = [
   {
-    id: "credit:1",
-    name: "Credit One"
+    id: "creditcard:1",
   },
   {
-    id: "credit:2",
-    name: "Credit Two"
+    id: "creditcard:2",
   },
 ];
+
+export const APPLICATIONS = [
+  {
+    id: "creditapplication:1",
+    applicant: "user:1",
+    yearlyEarnings: "50000",
+    totalDebt: "20000",
+    monthlyExpenses: "1000",
+    status: "APPROVED"
+  }
+]

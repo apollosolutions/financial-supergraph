@@ -1,10 +1,10 @@
-import { CREDITS } from "./data.js";
+import { CREDITCARDS } from "./data.js";
 
-export const getCreditById = (id) => CREDITS.find((it) => it.id === id);
+export const getCreditById = (id) => CREDITCARDS.find((it) => it.id === id);
 
 export const resolvers = {
   Query: {
-    credits: () => CREDITS
+    creditcards: () => ({})
   },
   Credit: {
     __resolveReference(ref) {

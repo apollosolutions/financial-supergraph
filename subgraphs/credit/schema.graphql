@@ -22,7 +22,7 @@ type User @key(fields: "id", resolvable: false) {
 
 type CreditCardApplication @key(fields: "id"){
   id: ID!
-  customer: User
+  applicant: User
   yearlyEarnings: Int
   totalDebt: Int
   monthlyExpenses: Int
