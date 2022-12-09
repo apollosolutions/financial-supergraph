@@ -8,3 +8,12 @@ export const USERS = [
     name: "User Two"
   },
 ];
+
+export const ACCOUNTS = [
+  {
+    id: "account:1",
+  },
+  {
+    id: "account:2",
+  },
+];

@@ -11,6 +11,10 @@ enum BankAccountTier {
   VIP
 }
 
+type User @key(fields: "id", resolvable: false) {
+  id: ID!
+}
+
 interface BankAccount {
   id: ID!
 }
