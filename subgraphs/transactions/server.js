@@ -14,9 +14,7 @@ const typeDefs = parse(
 );
 const schema = buildSubgraphSchema([{ typeDefs, resolvers }]);
 const server = new ApolloServer({
-  schema: authDirectiveTransformer(schema),
-  cache: "bounded",
-  csrfPrevention: true,
+  schema: authDirectiveTransformer(schema)
 });
 
 export const start = async (port) => {
