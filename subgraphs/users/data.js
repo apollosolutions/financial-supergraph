@@ -18,3 +18,12 @@ export const USERS = [
     ]
   },
 ];
+
+export const ACCOUNTS = [
+  {
+    id: "account:1",
+  },
+  {
+    id: "account:2",
+  },
+];

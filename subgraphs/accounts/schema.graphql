@@ -20,6 +20,11 @@ enum BankAccountTier {
   VIP
 }
 
+type Transaction @key(fields: "id") {
+  id: ID!
+  account: BankAccount
+}
+
 type BankAccount @key(fields: "id") {
   id: ID!
   name: String
@@ -27,7 +32,7 @@ type BankAccount @key(fields: "id") {
   tier: BankAccountTier
 }
 
-type BankAccountsResponse {
+type BankAccountsResponse @tag(name: "bankAccounts") {
   all: [BankAccount]
   checking: [BankAccount]
   savings: [BankAccount]

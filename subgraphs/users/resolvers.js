@@ -8,6 +8,7 @@ export const resolvers = {
   },
   User: {
     __resolveReference(ref) {
+      console.log('resolving User reference', ref.id);
       return getUserById(ref.id);
     },
     accounts: (parent) => getUserById(parent.id).accounts
