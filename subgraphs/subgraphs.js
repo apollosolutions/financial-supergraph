@@ -5,10 +5,10 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { getUsersSchema } from './subgraphs/users/subgraph.js';
-import { getAccountsSchema } from "./subgraphs/accounts/subgraph.js";
-import { getCreditSchema } from "./subgraphs/credit/subgraph.js";
-import { getTransactionsSchema } from "./subgraphs/transactions/subgraph.js";
+import { getUsersSchema } from './users/subgraph.js';
+import { getAccountsSchema } from './accounts/subgraph.js';
+import { getCreditSchema } from './credit/subgraph.js';
+import { getTransactionsSchema } from './transactions/subgraph.js';
 
 export const LOCAL_SUBGRAPH_CONFIG = [
   {
