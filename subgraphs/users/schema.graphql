@@ -9,7 +9,7 @@ Default to requiring admin permissions to avoid accidental exposure.
 If no auth is defined, it is open to all.
 The request role is parsed from the "x-user-id" header value.
 """
-directive @auth(requires: Role = ADMIN) on OBJECT | FIELD_DEFINITION
+directive @auth(requires: Role = ADMIN) repeatable on OBJECT | FIELD_DEFINITION
 
 """
 Used in the @auth directive to do directive-based auth control.
@@ -29,9 +29,4 @@ type Query {
 type User @key(fields: "id") @auth(requires: USER) {
   id: ID!
   name: String
-  accounts: [BankAccount]
-}
-
-type BankAccount @key(fields: "id", resolvable: false) {
-  id: ID!
 }

@@ -1,6 +1,7 @@
 import { ACCOUNTS } from "./data.js";
 
 export const getAccountById = (id) => ACCOUNTS.find((it) => it.id === id);
+export const getAccountsByUserId = (userId) => ACCOUNTS.filter((it) => it.user.id === userId);
 
 export const resolvers = {
   Query: {
@@ -16,4 +17,7 @@ export const resolvers = {
       return getAccountById(ref.id);
     }
   },
+  User: {
+    accounts: (parent) => getAccountsByUserId(parent.id)
+  }
 };
