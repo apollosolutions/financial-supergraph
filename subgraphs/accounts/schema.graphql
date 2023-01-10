@@ -1,5 +1,24 @@
 # noinspection GraphQLTypeRedefinition
 
+"""
+Require specific access to run resolvers of a field or object.
+Default to requiring admin permissions to avoid accidental exposure.
+If no auth is defined, it is open to all.
+The request role is parsed from the "x-user-id" header value.
+"""
+directive @auth(requires: Role = ADMIN) repeatable on OBJECT | FIELD_DEFINITION
+
+"""
+Used in the @auth directive to do directive-based auth control.
+See the docs for @auth for more info.
+"""
+enum Role {
+  ADMIN
+  PARTNER
+  USER
+  UNKNOWN
+}
+
 type Query {
   bankAccounts: BankAccountsResponse
 }
@@ -20,9 +39,9 @@ enum BankAccountTier {
   VIP
 }
 
-type Transaction @key(fields: "id") {
+type User @key(fields: "id") @auth(requires: USER) {
   id: ID!
-  account: BankAccount
+  accounts: [BankAccount]
 }
 
 type BankAccount @key(fields: "id") {
@@ -30,6 +49,7 @@ type BankAccount @key(fields: "id") {
   name: String
   type: BankAccountType
   tier: BankAccountTier
+  user: User
 }
 
 type BankAccountsResponse @tag(name: "bankAccounts") {

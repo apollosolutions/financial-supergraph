@@ -1,7 +1,7 @@
-import { ACCOUNTS, TRANSACTIONS } from "./data.js";
+import { ACCOUNTS } from "./data.js";
 
 export const getAccountById = (id) => ACCOUNTS.find((it) => it.id === id);
-export const getTransactionById = (id) => TRANSACTIONS.find((it) => it.id === id);
+export const getAccountsByUserId = (userId) => ACCOUNTS.filter((it) => it.user.id === userId);
 
 export const resolvers = {
   Query: {
@@ -14,18 +14,10 @@ export const resolvers = {
   },
   BankAccount: {
     __resolveReference(ref) {
-      console.log('resolving BankAccount reference', ref.id);
       return getAccountById(ref.id);
     }
   },
-  Transaction: {
-    __resolveReference(ref) {
-      console.log('resolving Transaction reference', ref.id);
-      return getTransactionById(ref.id);
-    },
-    account(transaction) {
-      console.log('resolving Transaction account', transaction.id);
-      return getAccountById(transaction.account);
-    } 
-  },
+  User: {
+    accounts: (parent) => getAccountsByUserId(parent.id)
+  }
 };

@@ -15,7 +15,7 @@ type Transaction @key(fields: "id") {
 type BankAccount @key(fields: "id") {
   id: ID!
   transactions: [Transaction]
-  balance: Int @requires(fields: "transactions { amount }")
+  balance: Int
 }
 
 type TransactionApproved {
