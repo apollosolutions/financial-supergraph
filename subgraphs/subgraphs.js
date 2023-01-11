@@ -1,6 +1,7 @@
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServer } from '@apollo/server';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { authDirectiveTransformer } from "@apollosolutions/simple-auth-directive";
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
@@ -43,7 +44,7 @@ export const startSubgraphs = async (httpPort) => {
     const subgraphConfig = getLocalSubgraphConfig(subgraph.name);
     const schema = subgraphConfig.getSchema();
     const server = new ApolloServer({
-      schema,
+      schema: authDirectiveTransformer(schema),
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
     });
 
