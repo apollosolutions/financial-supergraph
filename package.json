@@ -11,9 +11,9 @@
     "test:compile": "tsc"
   },
   "dependencies": {
-    "@apollo/gateway": "^2.2.1",
-    "@apollo/server": "^4.2.2",
-    "@apollo/subgraph": "^2.2.2",
+    "@apollo/gateway": "^2.2.3",
+    "@apollo/server": "^4.3.0",
+    "@apollo/subgraph": "^2.2.3",
     "@apollosolutions/simple-auth-directive": "github:apollosolutions/simple-auth-directive",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
-    "start-server-and-test": "^1.14.0",
+    "start-server-and-test": "^1.15.2",
     "typescript": "^4.9.4"
   },
   "nodemonConfig": {
