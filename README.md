@@ -1,6 +1,19 @@
-# apollo-financial-supergraph
+# Apollo GraphOS for Financial Services
 
-Example supergraph for a financial or banking business
+This repo provides a demonstration supergraph for a financial services company. You can explore the schema and run queries against it in [Apollo Studio](https://studio.apollographql.com/public/apollo-financial-supergraph/home?variant=prod). We encourage you to also use the schema as inspiration for your own financial supergraph!
+
+## View the schema
+This demo is published to the [Apollo Solutions](https://studio.apollographql.com/org/apollo-solutions) GraphOS
+org with the graph
+id [apollo-financial-supergraph](https://studio.apollographql.com/graph/apollo-financial-supergraph).
+
+You can also view and share the [public variant](https://studio.apollographql.com/public/apollo-financial-supergraph/home?variant=prod) to run queries right from Explorer.
+
+## What's Inside
+If you would like to run some sample operations, checkout the public [Operation Collections](https://studio.apollographql.com/public/apollo-financial-supergraph/explorer?collectionId=eafab9ec-551c-4eda-9ce7-cb9f2173d7dc&focusCollectionId=eafab9ec-551c-4eda-9ce7-cb9f2173d7dc&variant=prod) in Explorer.
+
+## Local Development
+If you want to run this supergraph locally you can clone this [GitHub repo](https://github.com/apollosolutions/financial-supergraph) and follow the instructions in [DEV.md](./DEV.md).
 
 ## Disclaimer
 The code in this repository is experimental and has been provided for reference purposes only. Community feedback is
@@ -8,35 +21,3 @@ welcome but this project may not be supported in the same way that repositories 
 official [Apollo GraphQL GitHub organization](https://github.com/apollographql) are. If you need help you can file an
 issue on this repository, [contact Apollo](https://www.apollographql.com/contact-sales) to talk to an expert, or create
 a ticket directly in Apollo Studio.
-
-## View the schema
-
-This demo is published to the [Apollo Solutions](https://studio.apollographql.com/org/apollo-solutions) GraphOS
-org with the graph
-id [financial-supergraph](https://studio.apollographql.com/graph/apollo-financial-supergraph).
-
-You can also view and share the [public variant](https://studio.apollographql.com/public/apollo-financial-supergraph/home?variant=prod) to run queries right from Explorer.
-
-## Running in browser
-
-Using [Stackblitz](https://stackblitz.com/github/apollosolutions/financial-supergraph?title=Apollo%20Solutions%20-%20Financial%20Supergraph) you can run a local instance of this supergraph without cloning the repo.
-
-## Running locally
-
-### Software requirements
-
-* Install the latest LTS version of Node (preferably using [nvm](https://github.com/nvm-sh/nvm))
-
-### Install dependencies
-
-```shell
-npm install
-```
-
-### Running the subgraphs and gateway
-
-Run the subgraphs and gateway, which use [Apollo Server](https://www.apollographql.com/docs/apollo-server/), using `npm`
-
-```shell
-npm run dev
-```
