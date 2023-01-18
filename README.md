@@ -12,6 +12,11 @@ You can also view and share the [public variant](https://studio.apollographql.co
 ## What's Inside
 If you would like to run some sample operations, checkout the public [Operation Collections](https://studio.apollographql.com/public/apollo-financial-supergraph/explorer?collectionId=eafab9ec-551c-4eda-9ce7-cb9f2173d7dc&focusCollectionId=eafab9ec-551c-4eda-9ce7-cb9f2173d7dc&variant=prod) in Explorer.
 
+### Other libraries used
+* [@apollo/server](https://www.apollographql.com/docs/apollo-server)
+* [@apollo/subgraph](https://www.apollographql.com/docs/apollo-server/using-federation/api/apollo-subgraph/)
+* [@apollosolutions/simple-auth-directive](https://github.com/apollosolutions/simple-auth-directive)
+
 ## Local Development
 If you want to run this supergraph locally you can clone this [GitHub repo](https://github.com/apollosolutions/financial-supergraph) and follow the instructions in [DEV.md](./DEV.md).
 
