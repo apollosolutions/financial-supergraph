@@ -14,19 +14,19 @@ import { getTransactionsSchema } from './transactions/subgraph.js';
 export const LOCAL_SUBGRAPH_CONFIG = [
   {
     name: 'accounts',
-    getSchema: getAccountsSchema
+    schema: getAccountsSchema()
   },
   {
     name: 'credit',
-    getSchema: getCreditSchema
+    schema: getCreditSchema()
   },
   {
     name: 'transactions',
-    getSchema: getTransactionsSchema
+    schema: getTransactionsSchema()
   },
   {
     name: 'users',
-    getSchema: getUsersSchema
+    schema: getUsersSchema()
   }
 ];
 
@@ -42,9 +42,10 @@ export const startSubgraphs = async (httpPort) => {
   // Run each subgraph on the same http server, but at different paths
   for (const subgraph of LOCAL_SUBGRAPH_CONFIG) {
     const subgraphConfig = getLocalSubgraphConfig(subgraph.name);
-    const schema = subgraphConfig.getSchema();
     const server = new ApolloServer({
-      schema: authDirectiveTransformer(schema),
+      schema: authDirectiveTransformer(subgraphConfig.schema),
+      // For a real subgraph introspection should be disabled, for the demo we have left on
+      introspection: true,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
     });
 
