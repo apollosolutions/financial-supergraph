@@ -1,16 +1,23 @@
 # noinspection GraphQLTypeRedefinition
 
 """
-Require specific access to run resolvers of a field or object.
-Default to requiring admin permissions to avoid accidental exposure.
-If no auth is defined, it is open to all.
-The request role is parsed from the "x-user-id" header value.
+Require that the user is authenticated and verified as a real user in our system.
+It does not enforce specific roles, just that header is properly defined.
+For our example it just checks the existence of the `x-user-id` header in the request.
 """
-directive @auth(requires: Role = ADMIN) repeatable on OBJECT | FIELD_DEFINITION
+directive @authenticated repeatable on OBJECT | FIELD_DEFINITION
 
 """
-Used in the @auth directive to do directive-based auth control.
-See the docs for @auth for more info.
+Require specific access to run resolvers of a field or object.
+Default to requiring admin permissions to avoid accidental exposure.
+If no auth is defined, it is open to all. See `@authenticated` for other combined usage.
+The request role is parsed from the "x-user-id" header value.
+"""
+directive @hasRole(requires: Role = ADMIN) repeatable on OBJECT | FIELD_DEFINITION
+
+"""
+Used in the @hasRole directive to do directive-based authentication control.
+See the docs for @hasRole for more info.
 """
 enum Role {
   ADMIN
@@ -20,7 +27,7 @@ enum Role {
 }
 
 type Query {
-  bankAccounts: BankAccountsResponse
+  bankAccounts: BankAccountsResponse @authenticated
 }
 
 type Mutation {
@@ -39,7 +46,7 @@ enum BankAccountTier {
   VIP
 }
 
-type User @key(fields: "id") @auth(requires: USER) {
+type User @key(fields: "id") @hasRole(requires: USER) {
   id: ID!
   accounts: [BankAccount]
 }
