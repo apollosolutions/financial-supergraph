@@ -10,6 +10,7 @@ import { getUsersSchema } from './users/subgraph.js';
 import { getAccountsSchema } from './accounts/subgraph.js';
 import { getCreditSchema } from './credit/subgraph.js';
 import { getTransactionsSchema } from './transactions/subgraph.js';
+import { getRiskSchema } from './risk/subgraph.js';
 
 export const LOCAL_SUBGRAPH_CONFIG = [
   {
@@ -27,7 +28,11 @@ export const LOCAL_SUBGRAPH_CONFIG = [
   {
     name: 'users',
     schema: getUsersSchema()
-  }
+  },
+  {
+    name: 'risk',
+    schema: getRiskSchema(),
+  },
 ];
 
 const getLocalSubgraphConfig = (subgraphName) =>
