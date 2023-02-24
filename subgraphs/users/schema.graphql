@@ -31,6 +31,7 @@ enum Role {
 
 type Query {
   users: [User] @authenticated
+  user: User @authenticated
 }
 
 type User @key(fields: "id") @hasRole(requires: USER) {

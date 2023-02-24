@@ -1,0 +1,6 @@
+# noinspection GraphQLTypeRedefinition
+
+type User @key(fields: "id") {
+  id: ID!
+  riskRating: Int
+}
