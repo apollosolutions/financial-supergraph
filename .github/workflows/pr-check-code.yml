@@ -46,6 +46,12 @@ jobs:
             --name credit \
             --schema ./subgraphs/credit/schema.graphql
 
+      - name: Check risk subgraph
+        run: |
+          rover subgraph check apollo-financial-supergraph@prod \
+            --name risk \
+            --schema ./subgraphs/risk/schema.graphql
+
       - name: Check transactions subgraph
         run: |
           rover subgraph check apollo-financial-supergraph@prod \
