@@ -54,6 +54,23 @@ jobs:
             --name credit \
             --schema schema.graphql
 
+  subgraph-risk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/latest | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+
+      - name: Publish subgraph schema
+        working-directory: ./subgraphs/risk
+        run: |
+          rover subgraph publish apollo-financial-supergraph@prod \
+            --name risk \
+            --schema schema.graphql
+
   subgraph-transactions:
     runs-on: ubuntu-latest
     steps:
