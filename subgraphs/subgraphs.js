@@ -22,17 +22,17 @@ export const LOCAL_SUBGRAPH_CONFIG = [
     schema: getCreditSchema()
   },
   {
+    name: 'risk',
+    schema: getRiskSchema(),
+  },
+  {
     name: 'transactions',
     schema: getTransactionsSchema()
   },
   {
     name: 'users',
     schema: getUsersSchema()
-  },
-  {
-    name: 'risk',
-    schema: getRiskSchema(),
-  },
+  }
 ];
 
 const getLocalSubgraphConfig = (subgraphName) =>
