@@ -1,11 +1,7 @@
-import { RISK } from "./data.js";
-
-export const getUserById = (id) => RISK.find((it) => it.id === id);
+const MAX_RISK_SCORE = 100;
 
 export const resolvers = {
   User: {
-    __resolveReference(ref) {
-      return getUserById(ref.id);
-    },
+    riskRating: () => Math.floor(Math.random() * MAX_RISK_SCORE)
   },
 };

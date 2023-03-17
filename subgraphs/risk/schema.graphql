@@ -2,5 +2,7 @@
 
 type User @key(fields: "id") {
   id: ID!
+
+  "Generate a random risk rating for each user"
   riskRating: Int
 }
