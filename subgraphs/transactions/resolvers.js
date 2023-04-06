@@ -7,6 +7,24 @@ export const resolvers = {
   Query: {
     transactions: () => TRANSACTIONS
   },
+  Mutation: {
+    debitFromAccount: () => ({
+      __typename: "TransactionApproved",
+      message: "Mutations in this demo are mocked. No account changes we made"
+    }),
+    creditToAccount: () => ({
+      __typename: "TransactionApproved",
+      message: "Mutations in this demo are mocked. No account changes we made"
+    }),
+    withdrawFromAccount: () => ({
+      __typename: "TransactionApproved",
+      message: "Mutations in this demo are mocked. No account changes we made"
+    }),
+    transferFundsBetweenAccounts: () => ({
+      __typename: "TransactionApproved",
+      message: "Mutations in this demo are mocked. No account changes we made"
+    }),
+  },
   BankAccount: {
     transactions: (parent) => getTransactionsByAccountId(parent.id),
     balance: (parent) => {
