@@ -3,14 +3,29 @@ import { ACCOUNTS } from "./data.js";
 export const getAccountById = (id) => ACCOUNTS.find((it) => it.id === id);
 export const getAccountsByUserId = (userId) => ACCOUNTS.filter((it) => it.user.id === userId);
 
+const CHECKING_ACCOUNTS = ACCOUNTS.filter(it => it.type === "CHECKING");
+const SAVINGS_ACCOUNTS = ACCOUNTS.filter(it => it.type === "SAVINGS");
+
 export const resolvers = {
   Query: {
     bankAccounts: () => ({})
   },
-  BankAccountsResponse: {
+  Mutation: {
+    openCheckingAccount: () => ({
+      message: "Mutations are mocked in this demo. No account was created",
+      success: true,
+      account: CHECKING_ACCOUNTS[0]
+    }),
+    openSavingsAccount: () => ({
+      message: "Mutations are mocked in this demo. No account was created",
+      success: true,
+      account: SAVINGS_ACCOUNTS[0]
+    })
+  },
+  AllBankAccounts: {
     all: () => ACCOUNTS,
-    checking: () => ACCOUNTS.filter(it => it.type === "CHECKING"),
-    savings: () => ACCOUNTS.filter(it => it.type === "SAVINGS")
+    checking: () => CHECKING_ACCOUNTS,
+    savings: () => SAVINGS_ACCOUNTS
   },
   BankAccount: {
     __resolveReference(ref) {

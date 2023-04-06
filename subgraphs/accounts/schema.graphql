@@ -27,12 +27,12 @@ enum Role {
 }
 
 type Query {
-  bankAccounts: BankAccountsResponse @authenticated
+  bankAccounts: AllBankAccounts @authenticated
 }
 
 type Mutation {
-  openCheckingAccount(tier: BankAccountTier): BankAccountsResponse
-  openSavingsAccount(tier: BankAccountTier): BankAccountsResponse
+  openCheckingAccount(tier: BankAccountTier): OpenBankAccountResponse
+  openSavingsAccount(tier: BankAccountTier): OpenBankAccountResponse
 }
 
 enum BankAccountType {
@@ -59,7 +59,13 @@ type BankAccount @key(fields: "id") {
   user: User
 }
 
-type BankAccountsResponse @tag(name: "bankAccounts") {
+type OpenBankAccountResponse {
+  message: String
+  success: Boolean
+  account: BankAccount
+}
+
+type AllBankAccounts @tag(name: "bankAccounts") {
   all: [BankAccount]
   checking: [BankAccount]
   savings: [BankAccount]

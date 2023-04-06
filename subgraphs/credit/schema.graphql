@@ -37,6 +37,12 @@ type BankAccount @key(fields: "id") {
   availableCredit: Int
 }
 
+type CreditCardApplicationResponse {
+  message: String
+  success: Boolean
+  application: CreditCardApplication
+}
+
 type Mutation {
-  applyForCredit(yearlyEarnings: Int!, totalDebt: Int!, monthlyExpenses: Int!): CreditCardApplication
+  applyForCredit(yearlyEarnings: Int!, totalDebt: Int!, monthlyExpenses: Int!): CreditCardApplicationResponse
 }
