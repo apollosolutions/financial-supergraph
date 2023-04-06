@@ -31,7 +31,9 @@ type Query {
 }
 
 type Mutation {
+  "Mock opening a new checking account"
   openCheckingAccount(tier: BankAccountTier): OpenBankAccountResponse
+  "Mock opening a new savings account"
   openSavingsAccount(tier: BankAccountTier): OpenBankAccountResponse
 }
 
