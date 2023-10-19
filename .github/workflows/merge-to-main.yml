@@ -3,6 +3,7 @@ name: merge-to-main
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 env:
   APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
@@ -25,95 +26,42 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Rover
-        run: |
-          curl -sSL https://rover.apollo.dev/nix/latest | sh
-          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - uses: apollosolutions/rover-actions/install-rover-cli@v1
 
-      - name: Publish subgraph schema
+      - name: Publish README
+        run: rover readme publish apollo-financial-supergraph@prod --file README.md
+
+      - name: Publish accounts schema
         working-directory: ./subgraphs/accounts
         run: |
           rover subgraph publish apollo-financial-supergraph@prod \
             --name accounts \
             --schema schema.graphql
 
-  subgraph-credit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Rover
-        run: |
-          curl -sSL https://rover.apollo.dev/nix/latest | sh
-          echo "$HOME/.rover/bin" >> $GITHUB_PATH
-
-      - name: Publish subgraph schema
+      - name: Publish credit schema
         working-directory: ./subgraphs/credit
         run: |
           rover subgraph publish apollo-financial-supergraph@prod \
             --name credit \
             --schema schema.graphql
 
-  subgraph-risk:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Rover
-        run: |
-          curl -sSL https://rover.apollo.dev/nix/latest | sh
-          echo "$HOME/.rover/bin" >> $GITHUB_PATH
-
-      - name: Publish subgraph schema
+      - name: Publish risk schema
         working-directory: ./subgraphs/risk
         run: |
           rover subgraph publish apollo-financial-supergraph@prod \
             --name risk \
             --schema schema.graphql
 
-  subgraph-transactions:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Rover
-        run: |
-          curl -sSL https://rover.apollo.dev/nix/latest | sh
-          echo "$HOME/.rover/bin" >> $GITHUB_PATH
-
-      - name: Publish subgraph schema
+      - name: Publish transactions schema
         working-directory: ./subgraphs/transactions
         run: |
           rover subgraph publish apollo-financial-supergraph@prod \
             --name transactions \
             --schema schema.graphql
 
-  subgraph-users:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Rover
-        run: |
-          curl -sSL https://rover.apollo.dev/nix/latest | sh
-          echo "$HOME/.rover/bin" >> $GITHUB_PATH
-
-      - name: Publish subgraph schema
+      - name: Publish users schema
         working-directory: ./subgraphs/users
         run: |
           rover subgraph publish apollo-financial-supergraph@prod \
             --name users \
             --schema schema.graphql
-
-  publish-README:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Rover
-        run: |
-          curl -sSL https://rover.apollo.dev/nix/latest | sh
-          echo "$HOME/.rover/bin" >> $GITHUB_PATH
-
-      - name: Publish README
-        run: rover readme publish apollo-financial-supergraph@prod --file README.md
