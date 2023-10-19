@@ -1,0 +1,223 @@
+schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")
+  @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/tag/v0.3")
+{
+  query: Query
+  mutation: Mutation
+}
+
+directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+directive @join__graph(name: String!, url: String!) on ENUM_VALUE
+
+directive @join__implements(graph: join__Graph!, interface: String!) repeatable on OBJECT | INTERFACE
+
+directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true, isInterfaceObject: Boolean! = false) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+
+directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
+
+directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
+
+directive @tag(name: String!) repeatable on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION | SCHEMA
+
+type AllBankAccounts
+  @join__type(graph: ACCOUNTS)
+  @tag(name: "bankAccounts")
+{
+  all: [BankAccount]
+  checking: [BankAccount]
+  savings: [BankAccount]
+}
+
+type BankAccount
+  @join__type(graph: ACCOUNTS, key: "id")
+  @join__type(graph: CREDIT, key: "id")
+  @join__type(graph: TRANSACTIONS, key: "id")
+{
+  id: ID!
+  name: String @join__field(graph: ACCOUNTS)
+  type: BankAccountType @join__field(graph: ACCOUNTS) @join__field(graph: CREDIT)
+  tier: BankAccountTier @join__field(graph: ACCOUNTS) @join__field(graph: CREDIT)
+  user: User @join__field(graph: ACCOUNTS)
+  balance: Int @join__field(graph: CREDIT) @join__field(graph: TRANSACTIONS)
+  availableCredit: Int @join__field(graph: CREDIT)
+  transactions: [Transaction] @join__field(graph: TRANSACTIONS)
+}
+
+enum BankAccountTier
+  @join__type(graph: ACCOUNTS)
+  @join__type(graph: CREDIT)
+{
+  BASIC @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: CREDIT)
+  PREMIUM @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: CREDIT)
+  VIP @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: CREDIT)
+}
+
+enum BankAccountType
+  @join__type(graph: ACCOUNTS)
+  @join__type(graph: CREDIT)
+{
+  CHECKING @join__enumValue(graph: ACCOUNTS)
+  SAVINGS @join__enumValue(graph: ACCOUNTS)
+  CREDIT_CARD @join__enumValue(graph: CREDIT)
+}
+
+enum CreditApplicationStatus
+  @join__type(graph: CREDIT)
+{
+  PENDING @join__enumValue(graph: CREDIT)
+  APPROVED @join__enumValue(graph: CREDIT)
+  DECLINED @join__enumValue(graph: CREDIT)
+}
+
+type CreditCardApplication
+  @join__type(graph: CREDIT, key: "id")
+{
+  id: ID!
+  customer: User
+  yearlyEarnings: Int
+  totalDebt: Int
+  monthlyExpenses: Int
+  status: CreditApplicationStatus
+}
+
+type CreditCardApplicationResponse
+  @join__type(graph: CREDIT)
+{
+  message: String
+  success: Boolean
+  application: CreditCardApplication
+}
+
+type InsufficientFundsError
+  @join__type(graph: TRANSACTIONS)
+{
+  message: String
+}
+
+scalar join__FieldSet
+
+enum join__Graph {
+  ACCOUNTS @join__graph(name: "accounts", url: "http://localhost:4001/accounts/graphql")
+  CREDIT @join__graph(name: "credit", url: "http://localhost:4001/credit/graphql")
+  RISK @join__graph(name: "risk", url: "http://localhost:4001/risk/graphql")
+  TRANSACTIONS @join__graph(name: "transactions", url: "http://localhost:4001/transactions/graphql")
+  USERS @join__graph(name: "users", url: "http://localhost:4001/users/graphql")
+}
+
+scalar link__Import
+
+enum link__Purpose {
+  """
+  `SECURITY` features provide metadata necessary to securely resolve fields.
+  """
+  SECURITY
+
+  """
+  `EXECUTION` features provide metadata necessary for operation execution.
+  """
+  EXECUTION
+}
+
+type Mutation
+  @join__type(graph: ACCOUNTS)
+  @join__type(graph: CREDIT)
+  @join__type(graph: TRANSACTIONS)
+{
+  """Mock opening a new checking account"""
+  openCheckingAccount(tier: BankAccountTier): OpenBankAccountResponse @join__field(graph: ACCOUNTS)
+
+  """Mock opening a new savings account"""
+  openSavingsAccount(tier: BankAccountTier): OpenBankAccountResponse @join__field(graph: ACCOUNTS)
+  applyForCredit(yearlyEarnings: Int!, totalDebt: Int!, monthlyExpenses: Int!): CreditCardApplicationResponse @join__field(graph: CREDIT)
+  debitFromAccount(account: ID!, amount: Int!): TransactionResult @join__field(graph: TRANSACTIONS)
+  creditToAccount(account: ID!, amount: Int!): TransactionResult @join__field(graph: TRANSACTIONS)
+  withdrawFromAccount(account: ID!, amount: Int!): TransactionResult @join__field(graph: TRANSACTIONS)
+  transferFundsBetweenAccounts(fromAccount: ID!, toAccount: ID!, amount: Int!): TransactionResult @join__field(graph: TRANSACTIONS)
+}
+
+type OpenBankAccountResponse
+  @join__type(graph: ACCOUNTS)
+{
+  message: String
+  success: Boolean
+  account: BankAccount
+}
+
+type Query
+  @join__type(graph: ACCOUNTS)
+  @join__type(graph: CREDIT)
+  @join__type(graph: RISK)
+  @join__type(graph: TRANSACTIONS)
+  @join__type(graph: USERS)
+{
+  bankAccounts: AllBankAccounts @join__field(graph: ACCOUNTS)
+  users: [User] @join__field(graph: USERS)
+  user: User @join__field(graph: USERS)
+}
+
+"""
+Used in the @hasRole directive to do directive-based authentication control.
+See the docs for @hasRole for more info.
+"""
+enum Role
+  @join__type(graph: ACCOUNTS)
+  @join__type(graph: USERS)
+{
+  ADMIN @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: USERS)
+  PARTNER @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: USERS)
+  USER @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: USERS)
+  UNKNOWN @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: USERS)
+}
+
+type Transaction
+  @join__type(graph: TRANSACTIONS, key: "id")
+{
+  id: ID!
+  amount: Int
+  description: String
+  account: BankAccount
+}
+
+type TransactionApproved
+  @join__type(graph: TRANSACTIONS)
+{
+  message: String
+}
+
+type TransactionDeclined
+  @join__type(graph: TRANSACTIONS)
+{
+  message: String
+}
+
+union TransactionResult
+  @join__type(graph: TRANSACTIONS)
+  @join__unionMember(graph: TRANSACTIONS, member: "InsufficientFundsError")
+  @join__unionMember(graph: TRANSACTIONS, member: "TransactionApproved")
+  @join__unionMember(graph: TRANSACTIONS, member: "TransactionDeclined")
+ = InsufficientFundsError | TransactionApproved | TransactionDeclined
+
+enum TransactionType
+  @join__type(graph: TRANSACTIONS)
+{
+  DEBIT @join__enumValue(graph: TRANSACTIONS)
+  CREDIT @join__enumValue(graph: TRANSACTIONS)
+}
+
+type User
+  @join__type(graph: ACCOUNTS, key: "id")
+  @join__type(graph: CREDIT, key: "id", resolvable: false)
+  @join__type(graph: RISK, key: "id")
+  @join__type(graph: USERS, key: "id")
+{
+  id: ID!
+  accounts: [BankAccount] @join__field(graph: ACCOUNTS)
+
+  """Generate a random risk rating for each user"""
+  riskRating: Int @join__field(graph: RISK)
+  name: String @join__field(graph: USERS)
+}

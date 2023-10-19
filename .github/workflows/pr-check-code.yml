@@ -12,12 +12,13 @@ jobs:
     env:
       CI: true
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+
+      - uses: apollosolutions/rover-actions/install-rover-cli@v1
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version-file: '.nvmrc'
           cache: "npm"
 
       - run: npm ci
@@ -29,10 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Rover
-        run: |
-          curl -sSL https://rover.apollo.dev/nix/latest | sh
-          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - uses: apollosolutions/rover-actions/install-rover-cli@v1
 
       - name: Check accounts subgraph
         run: |

@@ -15,6 +15,7 @@ If you would like to run some sample operations, checkout the public [Operation 
 ### Other libraries used
 * [@apollo/server](https://www.apollographql.com/docs/apollo-server)
 * [@apollo/subgraph](https://www.apollographql.com/docs/apollo-server/using-federation/api/apollo-subgraph/)
+* [Apollo Router](https://www.apollographql.com/docs/router)
 * [@apollosolutions/simple-auth-directive](https://github.com/apollosolutions/simple-auth-directive)
 
 ## Local Development
