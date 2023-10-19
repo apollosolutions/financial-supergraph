@@ -21,7 +21,7 @@ jobs:
       - name: Deploy to fly
         run: flyctl deploy --remote-only
 
-  subgraph-accounts:
+  publish-schemas:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
