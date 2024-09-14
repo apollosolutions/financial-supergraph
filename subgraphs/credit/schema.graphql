@@ -21,11 +21,6 @@ type CreditCardApplication @key(fields: "id"){
   status: CreditApplicationStatus
 }
 
-type BankAccount @key(fields: "id") {
-  id: ID!
-  availableCredit: Int
-}
-
 type CreditCardApplicationResponse {
   message: String
   success: Boolean
