@@ -1,8 +1,12 @@
 # noinspection GraphQLTypeRedefinition
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.8", import: ["@key"])
 
-enum TransactionType {
-  DEBIT
-  CREDIT
+type Mutation {
+  debitFromAccount(account: ID!, amount: Int!): TransactionResult
+  creditToAccount(account: ID!, amount: Int!): TransactionResult
+  withdrawFromAccount(account: ID!, amount: Int!): TransactionResult
+  transferFundsBetweenAccounts(fromAccount: ID!, toAccount: ID!, amount: Int!): TransactionResult
 }
 
 type Transaction @key(fields: "id") {
@@ -31,10 +35,3 @@ type InsufficientFundsError {
 }
 
 union TransactionResult = InsufficientFundsError | TransactionApproved | TransactionDeclined
-
-type Mutation {
-  debitFromAccount(account: ID!, amount: Int!): TransactionResult
-  creditToAccount(account: ID!, amount: Int!): TransactionResult
-  withdrawFromAccount(account: ID!, amount: Int!): TransactionResult
-  transferFundsBetweenAccounts(fromAccount: ID!, toAccount: ID!, amount: Int!): TransactionResult
-}

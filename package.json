@@ -12,13 +12,13 @@
     "test:compile": "tsc"
   },
   "dependencies": {
-    "@apollo/server": "^4.9.4",
-    "@apollo/subgraph": "^2.5.6",
+    "@apollo/server": "^4.11.0",
+    "@apollo/subgraph": "^2.9.0",
     "@apollosolutions/simple-auth-directive": "github:apollosolutions/simple-auth-directive",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "graphql": "^16.8.1"
+    "express": "^4.21.0",
+    "graphql": "^16.9.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",

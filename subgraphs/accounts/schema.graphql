@@ -1,4 +1,6 @@
 # noinspection GraphQLTypeRedefinition
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.8", import: ["@key", "@tag"])
 
 """
 Require that the user is authenticated and verified as a real user in our system.

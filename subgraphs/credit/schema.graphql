@@ -1,19 +1,11 @@
 # noinspection GraphQLTypeRedefinition
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.8", import: ["@key"])
 
 enum CreditApplicationStatus {
   PENDING
   APPROVED
   DECLINED
-}
-
-enum BankAccountTier {
-  BASIC
-  PREMIUM
-  VIP
-}
-
-enum BankAccountType {
-  CREDIT_CARD
 }
 
 type User @key(fields: "id", resolvable: false) {
@@ -31,9 +23,6 @@ type CreditCardApplication @key(fields: "id"){
 
 type BankAccount @key(fields: "id") {
   id: ID!
-  type: BankAccountType
-  tier: BankAccountTier
-  balance: Int
   availableCredit: Int
 }
 
