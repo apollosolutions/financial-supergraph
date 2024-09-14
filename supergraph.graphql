@@ -1,15 +1,17 @@
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
-  @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
-  @link(url: "https://specs.apollo.dev/tag/v0.3")
+  @link(url: "https://specs.apollo.dev/join/v0.5", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/tag/v0.3", import: ["@tag"])
 {
   query: Query
   mutation: Mutation
 }
 
+directive @join__directive(graphs: [join__Graph!], name: String!, args: join__DirectiveArguments) repeatable on SCHEMA | OBJECT | INTERFACE | FIELD_DEFINITION
+
 directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
 
-directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean, overrideLabel: String, contextArguments: [join__ContextArgument!]) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 directive @join__graph(name: String!, url: String!) on ENUM_VALUE
 
@@ -39,30 +41,27 @@ type BankAccount
 {
   id: ID!
   name: String @join__field(graph: ACCOUNTS)
-  type: BankAccountType @join__field(graph: ACCOUNTS) @join__field(graph: CREDIT)
-  tier: BankAccountTier @join__field(graph: ACCOUNTS) @join__field(graph: CREDIT)
+  type: BankAccountType @join__field(graph: ACCOUNTS)
+  tier: BankAccountTier @join__field(graph: ACCOUNTS)
   user: User @join__field(graph: ACCOUNTS)
-  balance: Int @join__field(graph: CREDIT) @join__field(graph: TRANSACTIONS)
   availableCredit: Int @join__field(graph: CREDIT)
   transactions: [Transaction] @join__field(graph: TRANSACTIONS)
+  balance: Int @join__field(graph: TRANSACTIONS)
 }
 
 enum BankAccountTier
   @join__type(graph: ACCOUNTS)
-  @join__type(graph: CREDIT)
 {
-  BASIC @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: CREDIT)
-  PREMIUM @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: CREDIT)
-  VIP @join__enumValue(graph: ACCOUNTS) @join__enumValue(graph: CREDIT)
+  BASIC @join__enumValue(graph: ACCOUNTS)
+  PREMIUM @join__enumValue(graph: ACCOUNTS)
+  VIP @join__enumValue(graph: ACCOUNTS)
 }
 
 enum BankAccountType
   @join__type(graph: ACCOUNTS)
-  @join__type(graph: CREDIT)
 {
   CHECKING @join__enumValue(graph: ACCOUNTS)
   SAVINGS @join__enumValue(graph: ACCOUNTS)
-  CREDIT_CARD @join__enumValue(graph: CREDIT)
 }
 
 enum CreditApplicationStatus
@@ -98,7 +97,18 @@ type InsufficientFundsError
   message: String
 }
 
+input join__ContextArgument {
+  name: String!
+  type: String!
+  context: String!
+  selection: join__FieldValue!
+}
+
+scalar join__DirectiveArguments
+
 scalar join__FieldSet
+
+scalar join__FieldValue
 
 enum join__Graph {
   ACCOUNTS @join__graph(name: "accounts", url: "http://localhost:4001/accounts/graphql")
@@ -200,13 +210,6 @@ union TransactionResult
   @join__unionMember(graph: TRANSACTIONS, member: "TransactionApproved")
   @join__unionMember(graph: TRANSACTIONS, member: "TransactionDeclined")
  = InsufficientFundsError | TransactionApproved | TransactionDeclined
-
-enum TransactionType
-  @join__type(graph: TRANSACTIONS)
-{
-  DEBIT @join__enumValue(graph: TRANSACTIONS)
-  CREDIT @join__enumValue(graph: TRANSACTIONS)
-}
 
 type User
   @join__type(graph: ACCOUNTS, key: "id")

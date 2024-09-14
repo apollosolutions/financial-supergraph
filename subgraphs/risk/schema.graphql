@@ -1,4 +1,6 @@
 # noinspection GraphQLTypeRedefinition
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.8", import: ["@key"])
 
 type User @key(fields: "id") {
   id: ID!
